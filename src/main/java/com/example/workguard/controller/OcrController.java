@@ -1,29 +1,28 @@
 package com.example.workguard.controller;
 
 import com.example.workguard.service.OcrService;
-import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.util.Map;
-
 @RestController
-@RequiredArgsConstructor
+@RequestMapping("/ocr")
 public class OcrController {
 
     private final OcrService ocrService;
 
+    public OcrController(OcrService ocrService) {
+        this.ocrService = ocrService;
+    }
+
     @PostMapping("/upload")
-    public ResponseEntity<Map<String, String>> uploadFile(@RequestParam("image") MultipartFile image) {
+    public ResponseEntity<String> uploadImage(@RequestParam("file") MultipartFile file) {
         try {
-            String result = ocrService.extractText(image);
-            return ResponseEntity.ok(Map.of("result", result));
+            String textResult = ocrService.sendToClovaOcr(file);
+            return ResponseEntity.ok(textResult);
         } catch (Exception e) {
-            e.printStackTrace();
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-                    .body(Map.of("error", e.getMessage()));
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error: " + e.getMessage());
         }
     }
 }
