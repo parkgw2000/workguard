@@ -5,6 +5,13 @@ build/
 !**/src/main/**/build/
 !**/src/test/**/build/
 
+### Python ###
+.json
+.safetensors
+.pt
+.pth
+.bin
+
 ### STS ###
 .apt_generated
 .classpath
