@@ -15,7 +15,12 @@ logging.disable(logging.WARNING)
 app = FastAPI()
 
 model_name = 'gogamza/kobart-base-v2'
-model_path = 'C:/Users/1/Desktop/Downloads/workguard/src/main/resources/models/ai/checkpoint-26606/'
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))  
+model_path = os.path.join(BASE_DIR, 'checkpoint-26606')
+
+print("모델 경로:", model_path)
+print("모델 경로 존재 여부:", os.path.exists(model_path))
+print("config.json 존재 여부:", os.path.exists(os.path.join(model_path, "config.json")))
 
 params = {
     'num_beams': 4,
