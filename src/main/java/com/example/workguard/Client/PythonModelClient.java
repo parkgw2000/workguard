@@ -11,7 +11,7 @@ import java.util.Map;
 public class PythonModelClient {
 
     private final RestTemplate restTemplate = new RestTemplate();
-    private final String pythonServerUrl = "http://localhost:8000/summarize";  // FastAPI 주소
+    private final String pythonServerUrl = "http://localhost:8081/summarize";  // FastAPI 주소
 
     public Map<String, Object> sendLinesToPythonModel(List<String> lines) {
         Map<String, Object> requestBody = Map.of("text", String.join(" ", lines));

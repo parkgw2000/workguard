@@ -5,6 +5,8 @@ import traceback
 from fastapi import FastAPI, Request
 from transformers import PreTrainedTokenizerFast, BartForConditionalGeneration, AutoConfig
 
+## 파이썬 실행: uvicorn summary_api:app --reload --host 0.0.0.0 --port 8081
+
 # 환경 변수 설정
 os.environ["CUDA_VISIBLE_DEVICES"] = "0"
 os.environ["TOKENIZERS_PARALLELISM"] = "false"
