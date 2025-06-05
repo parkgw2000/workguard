@@ -1,6 +1,6 @@
-package com.example.workguard.controller;
+package com.example.workguard.Controller;
 
-import com.example.workguard.service.OcrService;
+import com.example.workguard.Service.OcrService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;

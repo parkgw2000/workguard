@@ -1,4 +1,4 @@
-package com.example.workguard.service;
+package com.example.workguard.Service;
 
 import com.example.workguard.Client.PythonModelClient;
 import org.json.JSONArray;
