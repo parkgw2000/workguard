@@ -1,4 +1,4 @@
-package com.example.workguard.controller;
+package com.example.workguard.Controller;
 
 import com.example.workguard.Dto.LoginDTO;
 import com.example.workguard.Dto.UserDTO;
