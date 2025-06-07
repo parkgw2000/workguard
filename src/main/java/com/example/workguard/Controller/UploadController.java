@@ -1,5 +1,7 @@
 package com.example.workguard.Controller;
 
+import com.amazonaws.services.s3.model.PutObjectRequest;
+import com.amazonaws.services.s3.model.CannedAccessControlList;
 import com.amazonaws.services.s3.model.ListObjectsV2Result;
 import com.amazonaws.services.s3.model.S3ObjectSummary;
 import com.example.workguard.Dto.UserDTO;
@@ -58,7 +60,10 @@ public class UploadController {
             metadata.setContentLength(file.getSize());
 
             amazonS3Client.putObject(bucket, s3Key, file.getInputStream(), metadata);
+            //PutObjectRequest request = new PutObjectRequest(bucket, s3Key, file.getInputStream(), metadata)
+            //        .withCannedAcl(CannedAccessControlList.PublicRead);
 
+            //amazonS3Client.putObject(request);
             // ✅ Storage 엔티티 저장
             Storage storage = new Storage();
             Users user = new Users(); // ID만 설정해도 @ManyToOne 매핑 가능
