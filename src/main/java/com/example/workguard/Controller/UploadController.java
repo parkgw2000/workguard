@@ -29,6 +29,9 @@ public class UploadController {
     private final StorageRepository storageRepository;
     @Value("${cloud.aws.s3.bucket}")
     private String bucket;
+    @Value("${cloud.aws.region.static}")
+    private String region;
+
 
     //파일 업로드용
     @PostMapping("/file")
@@ -99,9 +102,9 @@ public class UploadController {
             fileInfo.put("size", obj.getSize());
             fileInfo.put("lastModified", obj.getLastModified());
             fileInfo.put("url", "https://" + bucket + "/" + obj.getKey()); // 파일 접근 URL
+            fileInfo.put("img", "https://" + bucket + ".s3." + region + ".amazonaws.com/" +obj.getKey()); // 파일 미리보기 url
             return fileInfo;
         }).collect(Collectors.toList());
-
         return ResponseEntity.ok(files);
     }
     
