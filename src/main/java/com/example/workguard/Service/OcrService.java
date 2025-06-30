@@ -1,6 +1,7 @@
 package com.example.workguard.Service;
 
 import com.example.workguard.Client.PythonModelClient;
+import com.example.workguard.Service.ChatGptService;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Value;
@@ -23,9 +24,11 @@ public class OcrService {
     private String CLOVA_SECRET;
 
     private final PythonModelClient pythonModelClient;
+    private final ChatGptService chatGptService;
 
-    public OcrService(PythonModelClient pythonModelClient) {
+    public OcrService(PythonModelClient pythonModelClient, ChatGptService chatGptService) {
         this.pythonModelClient = pythonModelClient;
+        this.chatGptService = chatGptService;
     }
 
     public String sendToClovaOcr(MultipartFile file) throws IOException {
@@ -79,10 +82,17 @@ public class OcrService {
             Map<String, Object> response = pythonModelClient.sendLinesToPythonModel(lines);
             pythonResponses.add(response);
         }
+        List<String> summaries = pythonResponses.stream()
+                .map(resp -> (String) resp.get("summary"))
+                .filter(s -> s != null && !s.isEmpty())
+                .collect(Collectors.toList());
+
+        String chatgptEvaluation = chatGptService.summarizeSummaries(summaries);
 
         // 예시로 파이썬 응답을 JSON 문자열로 합쳐서 반환
         JSONObject result = new JSONObject();
         result.put("python_responses", pythonResponses);
+        result.put("chatgpt_evaluation", chatgptEvaluation);
         return result.toString();
     }
 
