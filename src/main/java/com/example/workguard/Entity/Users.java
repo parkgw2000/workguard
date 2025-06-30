@@ -27,6 +27,7 @@ public class Users {
     @Column(name = "name", nullable = false, length = 50)
     private String name;
 
+    @Builder.Default
     @Column(name = "role", nullable = false, length = 20)
     @Enumerated(EnumType.STRING)
     private Role role = Role.USER;
