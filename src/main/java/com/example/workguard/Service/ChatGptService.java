@@ -29,7 +29,7 @@ public class ChatGptService {
                         Map.of("role", "user", "content", "아래 계약서 요약을 읽고 유불리를 판단하여 정리해 줘:\n" + fullText)
                 ),
                 "temperature", 0.5,
-                "max_tokens", 500
+                "max_tokens", 5000
         );
 
         Map response = webClient.post()
