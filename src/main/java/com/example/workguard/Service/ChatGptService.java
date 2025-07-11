@@ -26,7 +26,7 @@ public class ChatGptService {
                 "model", "gpt-4",
                 "messages", List.of(
                         Map.of("role", "system", "content", "너는 계약서 내용의 유불리를 판단하는 법률 도우미야."),
-                        Map.of("role", "user", "content", "아래 계약서 요약을 읽고 유불리를 판단하여 정리해 줘:\n" + fullText)
+                        Map.of("role", "user", "content", "아래 계약서 요약을 읽고 유리한 부분과 불리한 부분을 판단하여 따로따로 정리해 줘:\n" + fullText)
                 ),
                 "temperature", 0.5,
                 "max_tokens", 5000
@@ -46,6 +46,11 @@ public class ChatGptService {
         if (choices == null || choices.isEmpty()) return "요약 결과가 없습니다.";
 
         var message = (Map<String, Object>) choices.get(0).get("message");
-        return message != null ? (String) message.get("content") : "요약 결과가 없습니다.";
+        String content = message != null ? (String) message.get("content") : "요약 결과가 없습니다.";
+
+        System.out.println("chatGptEvaluation 길이: " + content.length());
+        System.out.println("chatGptEvaluation 전체 내용 (부분 출력):\n" + content.substring(0, Math.min(1000, content.length())));
+
+        return content;
     }
 }
