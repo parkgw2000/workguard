@@ -9,5 +9,4 @@ public class WorkguardApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(WorkguardApplication.class, args);
 	}
-
 }

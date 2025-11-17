@@ -66,7 +66,12 @@ public class OcrService {
         // 줄 그룹핑 후 JSON 배열 반환
         JSONArray groupedLinesJson = groupLinesToJson(extractedText);
 
-        // 파이썬 서버에 각 그룹별로 요청 보내기
+        System.out.println("jsontest" + groupedLinesJson);
+
+        return groupedLinesJson.toString();
+    }
+    public String processOcrAndPythonSummaries(JSONArray groupedLinesJson) {
+
         List<JSONArray> groups = new ArrayList<>();
         for (int i = 0; i < groupedLinesJson.length(); i++) {
             groups.add(groupedLinesJson.getJSONArray(i));
