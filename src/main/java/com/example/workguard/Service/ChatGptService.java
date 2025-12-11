@@ -23,13 +23,13 @@ public class ChatGptService {
         String fullText = String.join("\n", summaries);
 
         Map<String, Object> requestBody = Map.of(
-                "model", "gpt-4",
+                "model", "gpt-4o-mini",
                 "messages", List.of(
                         Map.of("role", "system", "content", "너는 계약서 내용의 유불리를 판단하는 법률 도우미야."),
                         Map.of("role", "user", "content", "아래 계약서 요약을 읽고 유리한 부분과 불리한 부분을 판단하여 따로따로 정리해 줘:\n" + fullText)
                 ),
                 "temperature", 0.5,
-                "max_tokens", 5000
+                "max_tokens", 2000
         );
 
         Map response = webClient.post()
